@@ -155,6 +155,8 @@ module RuboCop
           check_alignment([node.first_argument], indent)
         end
         alias on_csend on_send
+        alias on_def on_send
+        alias on_cdef on_send
 
         def autocorrect(node)
           AlignmentCorrector.correct(processed_source, node, column_delta)

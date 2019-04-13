@@ -743,4 +743,21 @@ RSpec.describe RuboCop::Cop::Layout::FirstParameterIndentation, :config do
       end
     end
   end
+
+  context 'foo' do
+    let(:style) { 'consistent' }
+    let(:indentation_width) { 2 }
+    it 'detects incorrectly indented first element' do
+      expect_offense(<<-RUBY.strip_indent)
+        def abc(
+                  foo: 1,
+                  ^^^^^^ Use 2 spaces for indentation in method args, relative to the start of the line where the left parenthesis is.
+                  bar: 3,
+                  baz: 3
+        )
+          foo
+        end
+      RUBY
+    end
+  end
 end
